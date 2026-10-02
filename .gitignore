@@ -1,0 +1,14 @@
+# This workspace also contains personal resumes and local backups.
+# Publish only the files explicitly allowed below.
+/*
+!/.gitignore
+!/.gitattributes
+!/.nojekyll
+!/README.md
+!/index.html
+!/styles.css
+!/app.js
+!/examples/
+
+/examples/*
+!/examples/example.md

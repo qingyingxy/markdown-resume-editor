@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown 简历模板渲染器</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside id="editorPanel" class="editor-panel" aria-label="Markdown 编辑">
+        <div class="section-title-row editor-panel-header">
+          <h2>Markdown</h2>
+          <div class="editor-file-actions">
+            <button id="reopenLastMdBtn" class="ghost-button" type="button" disabled>上次文件</button>
+            <button id="openMdBtn" class="ghost-button" type="button">选择MD</button>
+          </div>
+        </div>
+        <p id="fileStatus" class="file-status">请选择 Markdown 文件。</p>
+        <div class="markdown-editor-shell">
+          <pre id="markdownLineNumbers" class="markdown-line-numbers" aria-hidden="true"><span class="editor-line-number is-active">1</span></pre>
+          <textarea id="markdownInput" wrap="soft" spellcheck="false" aria-label="Markdown 简历内容"></textarea>
+          <div id="markdownLineMeasure" class="markdown-line-measure" aria-hidden="true"></div>
+        </div>
+        <div class="editor-status-bar" aria-live="polite">
+          <span>Markdown</span>
+          <span class="editor-position">
+            <span id="markdownLineCount">1 行</span>
+            <span id="cursorPosition">Ln 1, Col 1</span>
+          </span>
+        </div>
+      </aside>
+
+      <div
+        id="editorResizer"
+        class="panel-resizer"
+        data-resizer="editor"
+        role="separator"
+        aria-label="调整 Markdown 编辑区宽度"
+        aria-controls="editorPanel previewPane"
+        aria-orientation="vertical"
+        tabindex="0"
+        title="拖动调整宽度，双击恢复默认"
+      ></div>
+
+      <main id="previewPane" class="preview-pane" aria-label="简历预览">
+        <div id="previewStage" class="preview-stage">
+          <article id="resumePreview" class="resume-page"></article>
+        </div>
+      </main>
+
+      <div
+        id="controlResizer"
+        class="panel-resizer"
+        data-resizer="controls"
+        role="separator"
+        aria-label="调整参数栏宽度"
+        aria-controls="previewPane controlPanel"
+        aria-orientation="vertical"
+        tabindex="0"
+        title="拖动调整宽度，双击恢复默认"
+      ></div>
+
+      <aside id="controlPanel" class="control-panel" aria-label="简历设置">
+        <div class="panel-header">
+          <div>
+            <h1>简历模板</h1>
+            <p>Markdown 实时渲染</p>
+          </div>
+          <button id="printBtn" class="primary-button" type="button">打印</button>
+        </div>
+
+        <section class="panel-section">
+          <h2>预设</h2>
+          <div class="preset-actions" role="group" aria-label="简历样式预设">
+            <button id="ohMyCvPresetBtn" class="preset-button" type="button">Oh My CV</button>
+            <button id="compactPresetBtn" class="preset-button" type="button">黑白紧凑</button>
+            <button id="resetSettingsBtn" class="preset-button preset-button-secondary" type="button">恢复默认</button>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>页面</h2>
+          <label>
+            <span>左右页边距 <output id="marginXValue"></output></span>
+            <input id="marginX" type="range" min="24" max="72" step="1" />
+          </label>
+          <label>
+            <span>上下页边距 <output id="marginYValue"></output></span>
+            <input id="marginY" type="range" min="20" max="64" step="1" />
+          </label>
+          <div class="scale-setting">
+            <div class="setting-title-row">
+              <span>内容缩放</span>
+              <output id="fitScaleValue">100%</output>
+            </div>
+            <div class="segmented-control" role="group" aria-label="内容缩放模式">
+              <button id="autoScaleBtn" class="segment-button is-active" type="button" aria-pressed="true">自动</button>
+              <button id="manualScaleBtn" class="segment-button" type="button" aria-pressed="false">手动</button>
+            </div>
+          </div>
+          <label id="manualScaleControl" class="manual-scale-control is-disabled">
+            <span>手动比例 <output id="manualScaleValue"></output></span>
+            <input id="manualScale" type="range" min="80" max="100" step="0.1" disabled />
+          </label>
+          <p id="fitStatus" class="fit-status" data-state="idle" role="status">等待内容</p>
+        </section>
+
+        <section class="panel-section">
+          <h2>主题</h2>
+          <div class="theme-swatches" role="group" aria-label="主题色预设">
+            <button class="theme-swatch" type="button" data-theme-color="#000000" style="--swatch-color: #000000" aria-label="黑色" title="黑色"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#377BB5" style="--swatch-color: #377BB5" aria-label="蓝色" title="蓝色"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#D03432" style="--swatch-color: #D03432" aria-label="红色" title="红色"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#F28A2E" style="--swatch-color: #F28A2E" aria-label="橙色" title="橙色"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#9B55DE" style="--swatch-color: #9B55DE" aria-label="紫色" title="紫色"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#388E2F" style="--swatch-color: #388E2F" aria-label="绿色" title="绿色"></button>
+          </div>
+          <div class="theme-color-control">
+            <input id="themeColor" type="color" value="#377BB5" aria-label="选择自定义主题色" />
+            <input id="themeColorHex" type="text" value="#377BB5" maxlength="7" spellcheck="false" aria-label="主题色十六进制值" />
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>文字</h2>
+          <label>
+            <span>字体</span>
+            <select id="fontFamily">
+              <option value='"Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif'>微软雅黑 / 苹方</option>
+              <option value='"Alibaba PuHuiTi", "Alibaba PuHuiTi 3.0", "Alibaba PuHuiTi 2.0", "AlibabaPuHuiTi", "AlibabaPuHuiTi-3-45-Light", "Microsoft YaHei", sans-serif'>阿里巴巴普惠体</option>
+              <option value='"SimSun", "Songti SC", serif'>宋体</option>
+              <option value='"KaiTi", "Kaiti SC", serif'>楷体</option>
+              <option value='Arial, "Microsoft YaHei", sans-serif'>Arial</option>
+            </select>
+          </label>
+          <label>
+            <span>普通文字深浅 <output id="normalTextDepthValue"></output></span>
+            <input id="normalTextDepth" type="range" min="0" max="100" step="1" />
+          </label>
+          <label class="weight-toggle">
+            <span>正文偏粗</span>
+            <input id="bodyBold" type="checkbox" />
+          </label>
+          <label>
+            <span>正文字号 <output id="baseFontSizeValue"></output></span>
+            <input id="baseFontSize" type="range" min="11" max="16" step="0.5" />
+          </label>
+          <label>
+            <span>标题字号 <output id="headingFontSizeValue"></output></span>
+            <input id="headingFontSize" type="range" min="13" max="20" step="0.5" />
+          </label>
+          <label>
+            <span>经历标题字号 <output id="entryTitleFontSizeValue"></output></span>
+            <input id="entryTitleFontSize" type="range" min="12" max="18" step="0.5" />
+          </label>
+          <label>
+            <span>姓名字号 <output id="nameFontSizeValue"></output></span>
+            <input id="nameFontSize" type="range" min="18" max="30" step="1" />
+          </label>
+        </section>
+
+        <section class="panel-section">
+          <h2>间距</h2>
+          <div class="scale-setting">
+            <div class="setting-title-row">
+              <span>排版密度</span>
+            </div>
+            <div class="segmented-control three-segments" role="group" aria-label="排版密度">
+              <button class="segment-button density-button" type="button" data-density="compact" aria-pressed="false">紧凑</button>
+              <button class="segment-button density-button is-active" type="button" data-density="standard" aria-pressed="true">标准</button>
+              <button class="segment-button density-button" type="button" data-density="relaxed" aria-pressed="false">宽松</button>
+            </div>
+          </div>
+          <label>
+            <span>行距 <output id="lineHeightValue"></output></span>
+            <input id="lineHeight" type="range" min="1.25" max="1.8" step="0.01" />
+          </label>
+          <label>
+            <span>段落间距 <output id="paragraphGapValue"></output></span>
+            <input id="paragraphGap" type="range" min="0" max="10" step="1" />
+          </label>
+          <label>
+            <span>章节间距 <output id="sectionGapValue"></output></span>
+            <input id="sectionGap" type="range" min="2" max="16" step="1" />
+          </label>
+          <label>
+            <span>列表项间距 <output id="listItemGapValue"></output></span>
+            <input id="listItemGap" type="range" min="0" max="8" step="1" />
+          </label>
+          <label>
+            <span>项目间距 <output id="projectGapValue"></output></span>
+            <input id="projectGap" type="range" min="0" max="14" step="1" />
+          </label>
+        </section>
+
+      </aside>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
