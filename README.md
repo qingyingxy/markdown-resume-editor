@@ -4,6 +4,19 @@
 
 **在线使用：** [Markdown 简历编辑器](https://qingyingxy.github.io/markdown-resume-editor/)
 
+## 界面预览
+
+截图使用虚构示例内容，展示 Markdown 编辑、实时预览和排版设置。
+
+![Markdown 简历编辑器的编辑区、简历预览和设置面板](docs/screenshots/editor-overview.jpg)
+
+<details>
+<summary>查看简历排版细节</summary>
+
+![虚构示例简历的标题、分栏、日期和主题色排版](docs/screenshots/resume-preview.jpg)
+
+</details>
+
 ## 功能
 
 - 打开即显示虚构示例简历，可直接编辑和体验排版。
@@ -107,6 +120,7 @@
 ├── index.html           # 页面与控件
 ├── styles.css           # 编辑器、简历与打印样式
 ├── app.js               # 渲染、排版与本地文件同步
+├── docs/screenshots/    # 界面与简历排版截图
 ├── examples/
 │   └── example.md       # 与默认预览一致的虚构示例
 ├── .gitignore           # 仅允许发布项目文件
