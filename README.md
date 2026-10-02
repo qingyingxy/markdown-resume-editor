@@ -2,6 +2,8 @@
 
 一个无需安装依赖的纯前端简历编辑器。使用 HTML、CSS 和原生 JavaScript，将 Markdown 实时渲染为 A4 简历，并通过浏览器打印导出 PDF。
 
+**在线使用：** [Markdown 简历编辑器](https://qingyingxy.github.io/markdown-resume-editor/)
+
 ## 功能
 
 - Markdown 编辑、行号与实时预览。
