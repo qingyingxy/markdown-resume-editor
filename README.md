@@ -6,16 +6,9 @@
 
 ## 界面预览
 
-截图使用虚构示例内容，展示 Markdown 编辑、实时预览和排版设置。
+截图使用虚构示例内容，完整展示 Markdown 编辑、整张 A4 简历预览和排版设置。
 
-![Markdown 简历编辑器的编辑区、简历预览和设置面板](docs/screenshots/editor-overview.jpg)
-
-<details>
-<summary>查看简历排版细节</summary>
-
-![虚构示例简历的标题、分栏、日期和主题色排版](docs/screenshots/resume-preview.jpg)
-
-</details>
+![Markdown 简历编辑器的完整工作区与整页 A4 简历](docs/screenshots/editor-overview.jpg)
 
 ## 功能
 
