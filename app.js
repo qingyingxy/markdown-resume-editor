@@ -1,3 +1,56 @@
+const EXAMPLE_MARKDOWN = `# 示例同学
+
+**电话**：138-XXXX-XXXX | **邮箱**：student@example.com | **主页**：[作品集](https://example.com)
+
+%% 本文件中的人物、学校、公司和经历均为虚构，仅用于演示排版。
+
+## 教育经历
+
+**示例大学 · 计算机科学与技术 · 本科**
+~ 2022.09-2026.06
+
+核心课程：数据结构、操作系统、计算机网络、数据库原理。
+
+## 实习经历
+
+**示例科技有限公司**
+~ 前端开发实习生
+~ 2025.06-2025.09
+
+- 参与内部管理页面开发，完成表单、列表和详情页的交互。
+- 与后端协作对接接口，处理加载状态、空数据和请求失败提示。
+
+## 项目经验
+
+**Markdown 简历编辑器**
+~ 个人练习项目
+~ 2025.10-2025.12
+
+**技术栈**
+
+HTML、CSS、JavaScript、浏览器文件读写接口。
+
+- 将 Markdown 内容实时渲染为 A4 简历，支持标题、列表、链接和分栏排版。
+- 提供字体、字号、主题色与间距设置，通过浏览器打印导出 PDF。
+
+---
+
+**个人作品集网站**
+~ [项目链接](https://example.com)
+
+- 使用响应式布局展示项目介绍、技术栈与作品链接。
+- 针对不同屏幕尺寸调整内容排列与文字换行。
+
+## 技能
+
+- 熟悉 HTML、CSS 与 JavaScript，能够实现常见页面交互。
+- 掌握 Git 基本操作，了解 HTTP 与 REST API。
+
+## 补充说明
+
+请将示例内容替换为自己的真实经历。使用反引号添加标签，例如 \`JavaScript\`、\`前端开发\`。
+`;
+
 const DEFAULT_SETTINGS = {
   marginX: 45,
   marginY: 50,
@@ -770,7 +823,7 @@ function loadMarkdown(markdown, status) {
 }
 
 function loadInitialMarkdown() {
-  loadMarkdown("", "请选择 Markdown 文件，选择后会自动双向同步。");
+  loadMarkdown(EXAMPLE_MARKDOWN, "已载入虚构示例，可直接编辑预览。选择自己的 MD 文件后，修改会自动保存。");
 }
 
 function openFileHandleDatabase() {
